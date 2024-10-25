@@ -23,12 +23,14 @@ async function showInfo(infoURL){
 //nom, id (numPokedex), imagen, tipus
 const infoPokemon = await getInfo(infoURL);
 const element = document.getElementById(infoPokemon.name);
-
-
-    newElement.id = `${id}`;
+const img = await fetch(infoPokemon.sprites.front_default);
+    const newElement = document.createElement('ul');
+    newElement.id = `${infoPokemon.name}-info`;
     newElement.innerHTML = `
-        <li>Alçada: ${respostaJSON.height}</li>
-        <li>Pes: ${respostaJSON.weight}</li>`;
+        <li>Nom: ${infoPokemon.name}</li>
+        <li>Numero de Pokedex: ${infoPokemon.id}</li>
+        <img src="${img}" alt="Imagen de ${infoPokemon.name}">
+        <li>Tipus:</li>`;
 
     for (let tipus of respostaJSON.types) {
         newElement.innerHTML += `<li>Tipus: ${tipus.type.name}</li>`;
