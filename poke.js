@@ -7,7 +7,7 @@ window.onload = async () => {
     for (let poke of pokemons) {
         const newElement = document.createElement('ul');
         newElement.innerHTML = `
-        <li onclick="showInfo('${poke.url}, ${poke.name}')">${poke.name}</li>
+        <li onclick="showInfo('${poke.url}', '${poke.name}')">${poke.name}</li>
         <div id="${poke.name}"></div>
         <button onclick="addToTeam('${poke.name}')">Afegir al equip</button>`
         element.appendChild(newElement);
@@ -37,7 +37,6 @@ async function showSearchResults(event, formulari) {
         pokeInfo.innerHTML = `<li>No s'ha trobat el pokemon</li>`;
         return;
     }
-    console.log(`${poke.name}-search`);
     pokeInfo.innerHTML = `<li onclick="showInfo('${poke.url}', '${poke.name}-search')">${poke.name}</li>
     <div id="${poke.name}-search"></div>
     <button onclick="addToTeam('${poke.name}')">Afegir al equip</button>`;
@@ -59,20 +58,20 @@ async function searchPokemon(pokemonName) {  //con la busqueda manual
     return null;
 }
 
-async function showInfo(infoURL, id) {
+async function showInfo(infoURL, id) { //recibe el id del elemento pokemon
     console.log(id);
     console.log(infoURL);
     //arreglar imagen
     const infoPokemon = await getInfo(infoURL);
     const element = document.getElementById(id);
+    console.log(element);
     //const img = await fetch(infoPokemon.sprites.front_default);
-    if (!document.getElementById(id)) {
+    if (!document.getElementById(`${id}-info`)) {
         const newElement = document.createElement('ul');
-        newElement.id = id;
+        newElement.id = `${id}-info`;
         newElement.innerHTML = `
         <li>Nom: ${infoPokemon.name}</li>
         <li>Numero de Pokedex: ${infoPokemon.id}</li>
-        <img src="${img}" alt="Imagen de ${infoPokemon.name}">
         <li>Tipus:`;
 
         for (let tipus of infoPokemon.types) {
@@ -82,8 +81,10 @@ async function showInfo(infoURL, id) {
         newElement.innerHTML += `<button onclick="unshowInfo('${id}')">Amaga la informació</button>`;
 
         element.appendChild(newElement);
+        console.log("adios");
     }
 }
+
 
 async function getInfo(infoURL) {
     const infoPokemon = await fetch(infoURL);
