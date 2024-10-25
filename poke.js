@@ -1,7 +1,8 @@
 const pokeURL = 'https://pokeapi.co/api/v2'
+let pokemons = [];
 
 window.onload = async () => {
-    const pokemons = await getAllPokemons();
+    pokemons = await getAllPokemons();
     let element = document.getElementById('pokemons');
     for (let poke of pokemons) {
         const newElement = document.createElement('ul');
@@ -19,34 +20,42 @@ async function getAllPokemons() {
     return respostaJSON.results;
 }
 
- 
-async function showSearchResults(event, formulari){
+
+async function showSearchResults(event, formulari) {
     event.preventDefault();
-  
+
     const formulariElement = formulari.elements;
     const searchFormulariElement = formulariElement.search;
     const pokemonName = searchFormulariElement.value;
     searchFormulariElement.value = '';
-  
+
     const pokemon = await searchPokemon(pokemonName);
     const pokeInfo = document.getElementById('poke-resultado');
     pokeInfo.innerHTML = '';
-  
+
     if (!pokemon) {
-      pokeInfo.innerHTML = `<li>No s'ha trobat el pokemon</li>`;
-      return;
+        pokeInfo.innerHTML = `<li>No s'ha trobat el pokemon</li>`;
+        return;
     }
-    pokeInfo.innerHTML =`<li onclick="showInfo('${poke.url}')">${poke.name}</li>
+    pokeInfo.innerHTML = `<li onclick="showInfo('${poke.url}')">${poke.name}</li>
     <div id=${poke.name}></div>
     <button onclick="addToTeam('${poke.name}')">Afegir al equip</button>`;
 }
 
 
-async function searchPokemon(name) {  //con la busqueda de la API
-    const response = await fetch(`${APIpotter}/Spells?Name=${name}`);
-    const jsonResponse = await response.json();
-    console.table(jsonResponse);
-    return jsonResponse[0];
+async function searchPokemon(pokemonName) {  //con la busqueda manual
+    //dos bucles para priorice el nombre exacto (ej. mew / mewtwo)
+    for (poke of pokemons) { //busca por nombre exacto
+        if (poke.name === pokemonName.toLowerCase()) {
+            return poke;
+        }
+    }
+    for (poke of pokemons) { //si no encuentra el nombre exacto busca por nombre que contenga la palabra
+        if (poke.name.includes(pokemonName.toLowerCase())) {
+            return poke;
+        }
+    }
+    return null;
 }
 
 async function showInfo(infoURL) {
