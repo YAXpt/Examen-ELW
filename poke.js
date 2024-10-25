@@ -49,7 +49,23 @@ async function getInfo(infoURL){
 
 function addToTeam(pokeName){
 const element = document.getElementById('equip');
-const newElement = document.createElement('ul');
-if (document.getElementById)
+console.log(element.childElementCount);
+if (element.childElementCount >= 6){
+    alert('Ja tens 6 pokemons a l\'equip!');
+    return;
+}
+const newElement = document.createElement('li');
+if (document.getElementById(`${pokeName}-equip`)){
+    alert('Ja has afegit aquest pokemon al teu equip!');
+    return;
+}
+newElement.id = `${pokeName}-equip`;
+newElement.onclick = `removeFromTeam(pokeName)`;
+newElement.innerHTML = `${pokeName} <button onclick="removeFromTeam('${pokeName}-equip')">Treure de l'equip</button>`;
+element.appendChild(newElement);
+}
 
+function removeFromTeam(pokeIDequip){
+const element = document.getElementById(pokeIDequip);
+element.remove();
 }
