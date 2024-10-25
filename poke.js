@@ -7,8 +7,8 @@ window.onload = async () => {
     for (let poke of pokemons) {
         const newElement = document.createElement('ul');
         newElement.innerHTML = `
-        <li onclick="showInfo('${poke.url}')">${poke.name}</li>
-        <div id=${poke.name}></div>
+        <li onclick="showInfo('${poke.url}, ${poke.name}')">${poke.name}</li>
+        <div id="${poke.name}"></div>
         <button onclick="addToTeam('${poke.name}')">Afegir al equip</button>`
         element.appendChild(newElement);
     }
@@ -37,8 +37,9 @@ async function showSearchResults(event, formulari) {
         pokeInfo.innerHTML = `<li>No s'ha trobat el pokemon</li>`;
         return;
     }
-    pokeInfo.innerHTML = `<li onclick="showInfo('${poke.url}')">${poke.name}</li>
-    <div id=${poke.name}></div>
+    console.log(`${poke.name}-search`);
+    pokeInfo.innerHTML = `<li onclick="showInfo('${poke.url}', '${poke.name}-search')">${poke.name}</li>
+    <div id="${poke.name}-search"></div>
     <button onclick="addToTeam('${poke.name}')">Afegir al equip</button>`;
 }
 
@@ -58,14 +59,16 @@ async function searchPokemon(pokemonName) {  //con la busqueda manual
     return null;
 }
 
-async function showInfo(infoURL) {
+async function showInfo(infoURL, id) {
+    console.log(id);
+    console.log(infoURL);
     //arreglar imagen
     const infoPokemon = await getInfo(infoURL);
-    const element = document.getElementById(infoPokemon.name);
-    const img = await fetch(infoPokemon.sprites.front_default);
-    if (!document.getElementById(`${infoPokemon.name}-info`)) {
+    const element = document.getElementById(id);
+    //const img = await fetch(infoPokemon.sprites.front_default);
+    if (!document.getElementById(id)) {
         const newElement = document.createElement('ul');
-        newElement.id = `${infoPokemon.name}-info`;
+        newElement.id = id;
         newElement.innerHTML = `
         <li>Nom: ${infoPokemon.name}</li>
         <li>Numero de Pokedex: ${infoPokemon.id}</li>
@@ -76,7 +79,7 @@ async function showInfo(infoURL) {
             newElement.innerHTML += `${tipus.type.name} `;
         }
         newElement.innerHTML += `</li>`;
-        newElement.innerHTML += `<button onclick="unshowInfo('${infoPokemon.name}-info')">Amaga la informació</button>`;
+        newElement.innerHTML += `<button onclick="unshowInfo('${id}')">Amaga la informació</button>`;
 
         element.appendChild(newElement);
     }
@@ -85,6 +88,7 @@ async function showInfo(infoURL) {
 async function getInfo(infoURL) {
     const infoPokemon = await fetch(infoURL);
     const infoPokemonJSON = await infoPokemon.json();
+    console.table(infoPokemonJSON);
     return infoPokemonJSON;
 }
 
