@@ -6,9 +6,8 @@ window.onload = async () => {
     for (let poke of pokemons) {
         const newElement = document.createElement('ul');
         newElement.innerHTML = `
-        <li onclick="showInfo(${poke.url})" id=${poke.name}>${poke.name}</li>
+        <li onclick="showInfo('${poke.url}')" id=${poke.name}>${poke.name}</li>
         <button onclick="addToTeam('${poke.name}')">Afegir al equip</button>`
-
         element.appendChild(newElement);
     }
 }
@@ -20,7 +19,8 @@ async function getAllPokemons() {
 }
 
 async function showInfo(infoURL){
-//nom, id (numPokedex), imagen, tipus
+//arreglar imagen
+console.log(infoURL);
 const infoPokemon = await getInfo(infoURL);
 const element = document.getElementById(infoPokemon.name);
 const img = await fetch(infoPokemon.sprites.front_default);
@@ -30,22 +30,26 @@ const img = await fetch(infoPokemon.sprites.front_default);
         <li>Nom: ${infoPokemon.name}</li>
         <li>Numero de Pokedex: ${infoPokemon.id}</li>
         <img src="${img}" alt="Imagen de ${infoPokemon.name}">
-        <li>Tipus:</li>`;
+        <li>Tipus:`;
 
-    for (let tipus of respostaJSON.types) {
-        newElement.innerHTML += `<li>Tipus: ${tipus.type.name}</li>`;
+    for (let tipus of infoPokemon.types) {
+        newElement.innerHTML += `${tipus.type.name} `;
     }
-
-    newElement.innerHTML += `<button onclick="unshowInfo('${url}', '${id}')">Amaga la informació</button>`;
+    newElement.innerHTML += `</li>`;
+    newElement.innerHTML += `<button onclick="unshowInfo('${infoPokemon}-info')">Amaga la informació</button>`;
 
     element.appendChild(newElement);
-
-
-
 }
 
 async function getInfo(infoURL){
     const infoPokemon = await fetch(infoURL);
     const infoPokemonJSON = await infoPokemon.json();
     return infoPokemonJSON;
+}
+
+function addToTeam(pokeName){
+const element = document.getElementById('equip');
+const newElement = document.createElement('ul');
+if (document.getElementById)
+
 }
