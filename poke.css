@@ -3,7 +3,21 @@ header{
     background-size: cover;
     background-position: center;
     text-align: center;
-    text-shadow: 5px 5px 5px black;
+    text-shadow: 5px 5px 5px rgb(255, 255, 255);
+    
+    p{
+        background-color: rgba(255, 255, 255, 0.71);
+    }
+}
+img {
+    width: 200px;
+    height: auto;
+}
+nav {
+    position: sticky;
+    top: 10px;
+    text-align: right;
+    border-radius: 20px;
 }
 
 body{
@@ -13,18 +27,20 @@ body{
 }
 
 #seccio-equip{
-    background-color: bisque;
-
+    background-color: rgba(36, 35, 32, 0.278);
+    position:fixed;
+    top: 40%;
+    right: 5px;
+    border: 2px solid black;
 }
 
-@media (max-width: 780px) {
-    header{
-     
-    }
-  
+@media (max-width: 780px) {  
     body {
-     
-      background-color: rgb(140, 154, 223);
-      text-align: center;
+     font-size: large;
+     background-color: rgb(167, 240, 255);
+    }
+    img {
+        width: 120px;
+        height: auto;
     }
   }
