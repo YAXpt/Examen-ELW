@@ -14,15 +14,24 @@
     </header>
     <nav>
         <ul>
-          <li><a href="#seccio-pokemons">Pokemons disponibles</a></li>
-          <li><a href="#seccio-equip">El meu equip</a></li>
+            <li><a href="#seccio-pokemons">Pokemons disponibles</a></li>
+            <li><a href="#seccio-equip">El meu equip</a></li>
         </ul>
-      </nav>
+    </nav>
     <main>
         <section id="seccio-pokemons">
             <h2>Pokemons</h2>
             <div id="pokemons"></div>
         </section>
+        <section id="seccio-cercador">
+            <form onsubmit="return onSearchCharacter(event, this)">
+                <input type="text" id="search-char" placeholder="Busca un personaje">
+                <button type="submit">Buscar</button>
+            </form>
+            <div id="busqueda-personaje"></div>
+
+        </section>
+
         <section id="seccio-equip">
             <h3>El meu equip</h3>
             <ul id="equip"></ul>
