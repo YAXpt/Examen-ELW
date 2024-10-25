@@ -1,3 +1,30 @@
+header{
+    background-image: url("./qXZwxzd.jpeg");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    text-shadow: 5px 5px 5px black;
+}
+
+body{
+    font-size: medium;
+    background-color: rgb(180, 224, 210);
+    font-family: 'Courier New', Courier, monospace;
+}
+
 #seccio-equip{
     background-color: bisque;
+
 }
+
+@media (max-width: 780px) {
+    header{
+     
+    }
+  
+    body {
+     
+      background-color: rgb(140, 154, 223);
+      text-align: center;
+    }
+  }

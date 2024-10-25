@@ -58,20 +58,17 @@ async function searchPokemon(pokemonName) {  //con la busqueda manual
     return null;
 }
 
-async function showInfo(infoURL, id) { //recibe el id del elemento pokemon
-    console.log(id);
-    console.log(infoURL);
-    //arreglar imagen
+async function showInfo(infoURL, id) {
     const infoPokemon = await getInfo(infoURL);
     const element = document.getElementById(id);
     console.log(element);
-    //const img = await fetch(infoPokemon.sprites.front_default);
     if (!document.getElementById(`${id}-info`)) {
         const newElement = document.createElement('ul');
         newElement.id = `${id}-info`;
         newElement.innerHTML = `
         <li>Nom: ${infoPokemon.name}</li>
         <li>Numero de Pokedex: ${infoPokemon.id}</li>
+        <li><img src="${infoPokemon.sprites.other.home.front_default}" alt="${infoPokemon.name}"></li>
         <li>Tipus:`;
 
         for (let tipus of infoPokemon.types) {
@@ -81,7 +78,6 @@ async function showInfo(infoURL, id) { //recibe el id del elemento pokemon
         newElement.innerHTML += `<button onclick="unshowInfo('${id}')">Amaga la informació</button>`;
 
         element.appendChild(newElement);
-        console.log("adios");
     }
 }
 
