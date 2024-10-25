@@ -19,6 +19,36 @@ async function getAllPokemons() {
     return respostaJSON.results;
 }
 
+ 
+async function showSearchResults(event, formulari){
+    event.preventDefault();
+  
+    const formulariElement = formulari.elements;
+    const searchFormulariElement = formulariElement.search;
+    const pokemonName = searchFormulariElement.value;
+    searchFormulariElement.value = '';
+  
+    const pokemon = await searchPokemon(pokemonName);
+    const pokeInfo = document.getElementById('poke-resultado');
+    pokeInfo.innerHTML = '';
+  
+    if (!pokemon) {
+      pokeInfo.innerHTML = `<li>No s'ha trobat el pokemon</li>`;
+      return;
+    }
+    pokeInfo.innerHTML =`<li onclick="showInfo('${poke.url}')">${poke.name}</li>
+    <div id=${poke.name}></div>
+    <button onclick="addToTeam('${poke.name}')">Afegir al equip</button>`;
+}
+
+
+async function searchPokemon(name) {  //con la busqueda de la API
+    const response = await fetch(`${APIpotter}/Spells?Name=${name}`);
+    const jsonResponse = await response.json();
+    console.table(jsonResponse);
+    return jsonResponse[0];
+}
+
 async function showInfo(infoURL) {
     //arreglar imagen
     const infoPokemon = await getInfo(infoURL);

@@ -15,6 +15,7 @@
     <nav>
         <ul>
             <li><a href="#seccio-pokemons">Pokemons disponibles</a></li>
+            <li><a href="#seccio-cercador">Cercador Pokemon</a></li>
             <li><a href="#seccio-equip">El meu equip</a></li>
         </ul>
     </nav>
@@ -23,13 +24,13 @@
             <h2>Pokemons</h2>
             <div id="pokemons"></div>
         </section>
+
         <section id="seccio-cercador">
-            <form onsubmit="return onSearchCharacter(event, this)">
-                <input type="text" id="search-char" placeholder="Busca un personaje">
+            <form onsubmit="return showSearchResults(event, this)">
+                <input type="text" id="search" placeholder="Busca un pokemon">
                 <button type="submit">Buscar</button>
             </form>
-            <div id="busqueda-personaje"></div>
-
+            <div id="poke-resultado"></div>
         </section>
 
         <section id="seccio-equip">
